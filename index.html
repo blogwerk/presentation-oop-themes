@@ -42,13 +42,154 @@
 
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
+
 				<section>
-					<h1>OOP in WordPress Themes</h1>
-					<h3>No. like... Really.</h3>
+					<h3>OOP in WordPress Themes</h3>
+					<h1>Like, really.</h1>
 					<p>
-						<small>Created by <a href="http://twitter.com/tforrer">@tforrer</a> / <a href="http://twitter.com/msebel">@msebel</a></small>
+						Created by <a href="http://twitter.com/tforrer">@tforrer</a> and <a href="http://twitter.com/msebel">@msebel</a>,
 					</p>
+          <p>
+            Software engineers at <a href="http://www.blogwerk.com">Blogwerk</a>.
+          </p>
 				</section>
+
+        <section>
+          <section>
+            <h2>Anatomy of a WordPress theme</h2>
+
+            <ol>
+							<li>This comes first</li>
+							<li class="fragment">After a click</li>
+							<li class="fragment">After another click</li>
+						</ol>
+
+            <aside class="notes">
+              Small intro on why we decided to talk about this. Describe the fundamental files of a theme, show the template hierarchy,
+              show that it is very unflexible (template file paths),  messy (effectively two structures: template files + custom files on top)
+              no separation of view logic and business logic, no common best practices...
+            </aside>
+          </section>
+				</section>
+
+        <section>
+          <section>
+            <h2>Why bother</h2>
+
+            <aside class="notes">
+              Who are we? ->Agency with individual customer solutions based on WordPress
+              After the twentieth theme, we want reusability, standards, clean code...
+              Show the structure of a organized theme (not WordPress-specific) with
+              loader, theme bussiness logic, views, ressources, vendor libraries, tests
+            </aside>
+          </section>
+				</section>
+
+        <section>
+          <section>
+            <h2>Request lifecycle</h2>
+
+            <aside class="notes">
+              Show how WordPress executes a request and what role the theme code plays at
+              different locations during the execution:
+              plugins, theme, initalisation, query, template loader
+            </aside>
+          </section>
+				</section>
+
+        <section>
+          <section>
+            <h2>Theme object</h2>
+
+            <aside class="notes">
+              Explain the functions.php: PSR-0 class loader, object initalization, convenience
+              methods: setup(), init(), assets(), admin(), adminAssets(), ...
+            </aside>
+          </section>
+				</section>
+
+        <section>
+          <section>
+            <h2>Views</h2>
+
+            <aside class="notes">
+              organize the view files in a meaningfull way: place them where you want,
+              use existing view "templates" from the WordPress template hierarchy, define your
+              own views (get_template_part). Show the clean code from a view with only view code
+              (i.e. only the loop and html), access theme object from a private object context, ...
+              Resolve the problem: "a bunch of files in the theme root"
+            </aside>
+          </section>
+				</section>
+
+        <section>
+          <section>
+            <h2>Resources</h2>
+
+            <aside class="notes">
+              organize your static/client resources separately: css, js, language files, images, ...
+              separatation of concerns
+            </aside>
+          </section>
+				</section>
+
+        <section>
+          <section>
+            <h2>Good to go: basic theme</h2>
+
+            <aside class="notes">
+              Now you could use a twig loader and you wouldn't need to touch any PHP again
+              (only write HTML with Twig, CSS and JS)
+            </aside>
+          </section>
+				</section>
+
+        <section>
+          <section>
+            <h2>Component-based theme extensions</h2>
+
+            <aside class="notes">
+              How to extend the theme with custom functionalities
+              (where no suitable/satisfying plugins exist)
+              discuss the component based approach, explain the advanteges of namespacing,
+              OOP encapsulation, write clean code (small classes, that do one thing, but one thing well)
+            </aside>
+          </section>
+				</section>
+
+        <section>
+          <section>
+            <h2>Examples</h2>
+
+            <aside class="notes">
+              ENSI (with screenshots?): Technical Forum, Topics, Documents, Menus, Page Templates, ...
+              ENSI-Rat: child theme
+              StepChallenge: Application build on top of WordPress with all relevant application code in theme
+            </aside>
+          </section>
+				</section>
+
+        <section>
+          <section>
+            <h2>Outlook: Tests, dependencies</h2>
+
+            <aside class="notes">
+              Now that we have small, well-structured units of code: we can test them... ->behat, phpunit, selenium, ....
+              WordPress Core dependencies should be wrapped, plugin/library dependencies should be available from a service container
+            </aside>
+          </section>
+				</section>
+
+        <section>
+          <section>
+            <h2>Check us out on Github</h2>
+
+            <aside class="notes">
+              yay. yes. is good.
+            </aside>
+          </section>
+				</section>
+
 			</div>
 
 		</div>
