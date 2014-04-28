@@ -31,6 +31,11 @@
 			}
 		</script>
 
+    <style type="text/css">
+      .default-margin-top { margin-top:30px !important; }
+      .large-margin-top { margin-top:90px !important; }
+    </style>
+
 		<!--[if lt IE 9]>
 		<script src="lib/js/html5shiv.js"></script>
 		<![endif]-->
@@ -46,7 +51,7 @@
 				<section>
 					<h3>OOP in WordPress Themes</h3>
 					<h1>Like, really.</h1>
-					<p>
+					<p class="large-margin-top">
 						Created by <a href="http://twitter.com/tforrer">@tforrer</a> and <a href="http://twitter.com/msebel">@msebel</a>,
 					</p>
           <p>
@@ -77,6 +82,21 @@
 
             <img src="images/wordpress-template-hierarchy1.png">
           </section>
+
+          <section>
+            <h2>Disadvantages</h2>
+
+            <p>
+              If you need to provide a customer theme with many different templates and business logic, you'll face the following problems:
+            </p>
+
+            <ol class="default-margin-top">
+							<li class="fragment">Everything is at root level: Page templates, template parts and the WordPress theme templates.</li>
+							<li class="fragment">With 50 files, you'll have difficulties finding the right one.</li>
+							<li class="fragment">You might even get naming problems.</li>
+						</ol>
+          </section>
+
 				</section>
 
         <section>
@@ -87,23 +107,39 @@
               <li class="fragment">Fun fact: We're a WordPress agency. That's why.</li>
             </ol>
 
-            <p class="fragment" style="margin-top:20px;">
+            <p class="fragment default-margin-top">
               We have 150+ individual customer solutions based on WordPress. What we want (need!)
-              is reusability, standards, clean object oriented core, file structures.
+              is reusability, standards, clean object oriented code, a meaningful file structure.
             </p>
 
             <aside class="notes">
               Who are we? ->Agency with individual customer solutions based on WordPress
               After the twentieth theme, we want (need!) reusability, standards, clean code...
               Show the structure of a organized theme (not WordPress-specific) with
-              loader, theme bussiness logic, views, ressources, vendor libraries, tests
+              loader, theme business logic, views, resources, vendor libraries, tests
             </aside>
           </section>
 
           <section>
-            <h2>An example</h2>
+            <h2>Example: twentyfourteen</h2>
+
+            <table width="100%">
+              <tr>
+                <td width="300">
+                  <img src="images/twentyfourteen-hierarchy.png" />
+                </td>
+                <td style="vertical-align:top">
+                  <ul class="default-margin-top">
+                    <li class="fragment">This is not a bad example.</li>
+                    <li class="fragment default-margin-top">But it will "only" provide you with very basic blog functionality.</li>
+                    <li class="fragment default-margin-top">But what if we have to add more customer specific templates/views?</li>
+                  </ul>
+                </td>
+              </tr>
+            </table>
 
           </section>
+
 				</section>
 
         <section>
@@ -133,6 +169,12 @@
           <section>
             <h2>Views</h2>
 
+            <p class="default-margin-top">
+              What's the goal? In complex themes you may have a lot more views to store: ajax dialogs,
+              backend views, widget content, template parts, page templates, etc.
+            </p>
+
+
             <aside class="notes">
               organize the view files in a meaningfull way: place them where you want,
               use existing view "templates" from the WordPress template hierarchy, define your
@@ -141,6 +183,46 @@
               Resolve the problem: "a bunch of files in the theme root"
             </aside>
           </section>
+
+          <section>
+            <h1>Now how do we organize this?</h1>
+          </section>
+
+          <section>
+            <h2>Mama already told you:</h2>
+            <h2>Go clean up your room</h2>
+
+            <ol>
+              <li>Organize your files in a meaningfull way</li>
+              <li class="fragment">Put the WordPress theme files where you need them</li>
+              <li class="fragment">Use <strong>*more*</strong> template parts</li>
+              <li class="fragment">Add other HTML only things like Ajax Dialogs</li>
+            </ol>
+
+          </section>
+
+          <section>
+            <h2>Example: mobilesport.ch</h2>
+
+            <table width="100%">
+              <tr>
+                <td width="300">
+                  <img src="images/mobilesport-example.png" />
+                </td>
+                <td style="vertical-align:top">
+                  <ul class="default-margin-top">
+                    <li class="fragment">Customer Theme with many views. It has a total of 60 views.</li>
+                    <li class="fragment default-margin-top">One of the first projects to use our oop-theme structure.</li>
+                    <li class="fragment default-margin-top">Views are separated by concerns.</li>
+                  </ul>
+
+                  <img src="images/mobilesport-templates.png" class="fragment default-margin-top">
+                </td>
+              </tr>
+            </table>
+
+          </section>
+
 				</section>
 
         <section>
