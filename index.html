@@ -226,14 +226,41 @@
 				</section>
 
         <section>
+
           <section>
             <h2>Resources</h2>
+
+            <p>
+              What about everything else? (S)CSS, scripts, language files, images, fonts? You <em><strong>could</strong></em> do what
+              you want here, but let us give you some advice.
+            </p>
 
             <aside class="notes">
               organize your static/client resources separately: css, js, language files, images, ...
               separatation of concerns
             </aside>
           </section>
+
+          <section>
+            <h2>The file structure</h2>
+
+            <table width="100%">
+              <tr>
+                <td width="250">
+                  <img src="images/resources-example.png" />
+                </td>
+                <td style="vertical-align:top">
+                  <ul class="default-margin-top">
+                    <li class="fragment">resources: fonts, images, language files, scripts, styles. Feel free for example to create sub folders like "backend" or "frontend" for styles.</li>
+                    <li class="fragment default-margin-top">src: Namespaced business logic.</li>
+                    <li class="fragment default-margin-top">views: HTML/PHP template files.</li>
+                    <li class="fragment default-margin-top">Theme Root: only style.css, index.php and functions.php to load the stack</li>
+                  </ul>
+                </td>
+              </tr>
+            </table>
+          </section>
+
 				</section>
 
         <section>
@@ -261,8 +288,12 @@
 				</section>
 
         <section>
+
           <section>
             <h2>Examples</h2>
+
+            <h3 class="large-margin-top">Website for ENSI based on WordPress</h3>
+            <h3 class="default-margin-top">Individual Software on top of WordPress</h3>
 
             <aside class="notes">
               ENSI (with screenshots?): Technical Forum, Topics, Documents, Menus, Page Templates, ...
@@ -270,6 +301,53 @@
               StepChallenge: Application build on top of WordPress with all relevant application code in theme
             </aside>
           </section>
+
+          <section>
+            <h2>A complex website: ensi.ch relaunch</h2>
+
+
+          </section>
+
+          <section>
+            <h2>What about child themes?</h2>
+
+
+          </section>
+
+          <section>
+            <h2>stepchallenge.ch: Individual software</h2>
+
+            <p class="default-margin-top">
+              Connect your Fitbit, Jawbone or Withings device and challenge other users on the platform.
+              The app should motivate end users to have more activity that their opponent over a period of time.
+            </p>
+
+            <h1 class="default-margin-top fragment">Why. On Earth.</h1>
+            <h3 class="default-margin-top fragment">Would someone use WordPress to code a web app?</h3>
+          </section>
+
+          <section>
+            <h1>I will tell you why</h1>
+
+            <ul class="default-margin-top">
+              <li class="fragment">Most important: Namespaces, structure, components.</li>
+              <li class="fragment">Second: I know WordPress inside out.</li>
+              <li class="fragment">
+                Make use of WordPress: Rewriting, page templates, static content, cache functions.
+                Extend the backend with custom admin capabilities (e.g. challenge- or user management).
+              </li>
+              <li class="fragment">Load balanced WordPress infrastructure.</li>
+            </ul>
+
+            <div class="fragment large-margin-top">
+              <h2>Let's have a look at some code</h2>
+              <p class="default-margin-top">
+                The theme has around 40 views and 30 classes. <br /> And there's still a lot of work to do.
+              </p>
+            </div>
+
+          </section>
+
 				</section>
 
         <section>
@@ -285,7 +363,18 @@
 
         <section>
           <section>
-            <h2>Check us out on Github</h2>
+            <h1>Check us out</h1>
+            <h2>on Github</h2>
+
+            <a href="https://github.com/blogwerk/oop-theme" class="default-margin-top">
+              github.com/blogwerk/oop-theme
+            </a>
+
+            <h3 class="large-margin-top">Follow us on Twitter</h3>
+
+            <a href="https://twitter.com/tforrer" class="default-margin-top">@tforrer</a>,
+            <a href="https://twitter.com/msebel" class="default-margin-top">@msebel</a> and
+            <a href="https://twitter.com/blogwerk" class="default-margin-top">@blogwerk</a>
 
             <aside class="notes">
               yay. yes. is good.
