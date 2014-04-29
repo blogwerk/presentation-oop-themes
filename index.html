@@ -189,7 +189,7 @@
           </section>
 
           <section>
-            <h2>Mama already told you:</h2>
+            <h2>Yo mamma already told you:</h2>
             <h2>Go clean up your room</h2>
 
             <ol>
@@ -264,6 +264,7 @@
 				</section>
 
         <section>
+
           <section>
             <h2>Good to go: basic theme</h2>
 
@@ -272,19 +273,85 @@
               (only write HTML with Twig, CSS and JS)
             </aside>
           </section>
+
 				</section>
 
         <section>
+
           <section>
             <h2>Component-based theme extensions</h2>
+
+            <ol>
+              <li>Hello1</li>
+              <li class="fragment">Hello2</li>
+              <li class="fragment">Hello3</li>
+            </ol>
 
             <aside class="notes">
               How to extend the theme with custom functionalities
               (where no suitable/satisfying plugins exist)
               discuss the component based approach, explain the advanteges of namespacing,
               OOP encapsulation, write clean code (small classes, that do one thing, but one thing well)
+              use namespaces as a form of documentation (with use) and autocompletion
             </aside>
           </section>
+
+          <section>
+            <h2>Handling new requirements</h2>
+
+            <aside class="notes">
+              Maybe an ensi example on how we got the requirements for the technical forum and why we
+              developet the classes as they are today.
+            </aside>
+          </section>
+
+          <section>
+            <h2>Encapsulation</h2>
+
+            <p>Another example of encapsulation. Recently we've had a severe case of "oh that class starts growing too big".</p>
+
+            <h3 class="fragment large-margin-top">class Challenger extends Entity</h3>
+
+            <ul class="fragment default-margin-top">
+              <li>Naming is important: We chose "challenger" instead of "user"</li>
+              <li>Has methods like "getProfileLink", "getDevice" or "getAvatar"</li>
+            </ul>
+
+            <aside class="notes">
+              A stepchallenge.ch example on how we realized, that there are a lot of friendship functions on the
+              challenger entity and then switched to a friendship entity. Making sure that it still works, by checking
+              namespace usage in other classes
+            </aside>
+          </section>
+
+          <section>
+            <h2>Encapsulation</h2>
+
+            <p>
+              Then we wanted to add friendship functionality to the challenger entity.
+              While developing, we noticed, that it's a bit more complex than expected.
+            </p>
+
+            <h3 class="fragment large-margin-top">
+              And suddenly the challenger class grew from 195 lines to around 500 lines.
+            </h3>
+
+            <p class="fragment default-margin-top">
+              Solution: Separating the concerns, by giving the friendship their own entity class.
+              Now we have a 200 and 250 line class.
+            </p>
+          </section>
+
+          <section>
+            <h2>Encapsulation</h2>
+            <img src="images/challenger-wrapper.png" />
+          </section>
+
+          <section>
+            <h2>Encapsulation</h2>
+            <img src="images/friendship-code.png" />
+          </section>
+
 				</section>
 
         <section>
@@ -327,7 +394,7 @@
           </section>
 
           <section>
-            <h1>I will tell you why</h1>
+            <h1>Well, why not?</h1>
 
             <ul class="default-margin-top">
               <li class="fragment">Most important: Namespaces, structure, components.</li>
@@ -366,8 +433,12 @@
             <h1>Check us out</h1>
             <h2>on Github</h2>
 
-            <a href="https://github.com/blogwerk/oop-theme" class="default-margin-top">
-              github.com/blogwerk/oop-theme
+            <a href="https://github.com/blogwerk/oop-theme-plugin" class="default-margin-top">
+              github.com/blogwerk/oop-theme-plugin
+            </a>
+            <br />
+            <a href="https://github.com/blogwerk/oop-theme-example" class="default-margin-top">
+              github.com/blogwerk/oop-theme-example
             </a>
 
             <h3 class="large-margin-top">Follow us on Twitter</h3>
