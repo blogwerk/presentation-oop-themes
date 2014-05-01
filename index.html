@@ -34,8 +34,8 @@
   <style type="text/css">
     .default-margin-top { margin-top: 30px !important; }
     .large-margin-top { margin-top: 90px !important; }
-    .no-background { background: none!important; }
-    .no-border { border:none!important; box-shadow: none!important; }
+    .no-background { background: none !important; }
+    .no-border { border: none !important; box-shadow: none !important; }
     .replacement { display: none; }
     .current-fragment, .fragment.first { display: block; }
     .current-fragment ~ .fragment { display: none; }
@@ -66,21 +66,21 @@
     Software engineers at <a href="http://www.blogwerk.com">Blogwerk</a>.
   </p>
   <aside class="notes">
-    Thank you all for coming, we are honored to begin this series of talks... <br />
+    Thank you all for coming, we are honored to begin this series of talks... <br/>
 
-    We know, it's early in the morning, but we have to warn you: this is going to be a bit of a technical talk... <br />
+    We know, it's early in the morning, but we have to warn you: this is going to be a bit of a technical talk... <br/>
 
-    How many of you have developed a WordPress theme at some point? <br />
+    How many of you have developed a WordPress theme at some point? <br/>
 
-    We're gonna talk about themes! specifically about <br />
-     - how you could structure your theme more flexibly <br />
-     - how to use object-oriented programming patterns in your theme <br />
+    We're gonna talk about themes! specifically about <br/>
+    - how you could structure your theme more flexibly <br/>
+    - how to use object-oriented programming patterns in your theme <br/>
 
-     <br />
-     - separation of concerns <br />
-     - specifically, how to implement an oop theme <br />
-     - psr-0 namespaces, autoloading <br />
-     - advantages of using such a structure <br />
+    <br/>
+    - separation of concerns <br/>
+    - specifically, how to implement an oop theme <br/>
+    - psr-0 namespaces, autoloading <br/>
+    - advantages of using such a structure <br/>
   </aside>
 </section>
 
@@ -96,14 +96,14 @@
     </ol>
 
     <aside class="notes">
-      Describe the fundamental files of a theme, show the template hierarchy, <br />
+      Describe the fundamental files of a theme, show the template hierarchy, <br/>
 
-       - the WordPress Codex describes in detail where to place your theme files <br />
-       - WordPress will determine based on the query which of these files it should render ▼<br />
-       - this is a bit unflexible: you can't decide to put your main views in a "views" folder (template file paths)... ▼<br />
-       - no separation of view logic and business logic <br />
-       - this is also a bit messy: effectively two structures: template files + custom files on top<br />
-       - no "best" common practices <br />
+      - the WordPress Codex describes in detail where to place your theme files <br/>
+      - WordPress will determine based on the query which of these files it should render ▼<br/>
+      - this is a bit unflexible: you can't decide to put your main views in a "views" folder (template file paths)... ▼<br/>
+      - no separation of view logic and business logic <br/>
+      - this is also a bit messy: effectively two structures: template files + custom files on top<br/>
+      - no "best" common practices <br/>
     </aside>
   </section>
 
@@ -183,23 +183,31 @@
   <section>
     <h2>Request lifecycle</h2>
 
-    <img src="images/request-lifecycle-5.png" class="no-border no-background fragment replacement" data-fragment-index="4" />
-    <img src="images/request-lifecycle-4.png" class="no-border no-background fragment replacement" data-fragment-index="3" />
-    <img src="images/request-lifecycle-3.png" class="no-border no-background fragment replacement" data-fragment-index="2" />
-    <img src="images/request-lifecycle-2.png" class="no-border no-background fragment replacement" data-fragment-index="1" />
-    <img src="images/request-lifecycle-1.png" class="no-border no-background fragment first" data-fragment-index="0" />
+    <img src="images/request-lifecycle-5.png" class="no-border no-background fragment replacement"
+         data-fragment-index="4"/>
+    <img src="images/request-lifecycle-4.png" class="no-border no-background fragment replacement"
+         data-fragment-index="3"/>
+    <img src="images/request-lifecycle-3.png" class="no-border no-background fragment replacement"
+         data-fragment-index="2"/>
+    <img src="images/request-lifecycle-2.png" class="no-border no-background fragment replacement"
+         data-fragment-index="1"/>
+    <img src="images/request-lifecycle-1.png" class="no-border no-background fragment first" data-fragment-index="0"/>
 
     <aside class="notes">
-      In order to implement an OOP Theme, we have to understand how WorPress handles an incoming request: "the request lifecycle" <br />
-      Questions we're trying to answer here: <br />
-       - where can we influence WordPress to suit our needs? <br />
-       - how WordPress renders a theme view? ▼<br />
-      I assume everyone here understands the basic concept of WordPress hooks (actions and filters)? -> Event system, callback executed in specific point or situation, extend functionality
-      Essentially, there are 3 main stages (after the index.php calls the wp-blog-header.php which calls wp-config.php and after that wp-settings.php) ▼<br />
-       - Initialisation: load WordPress Core, load Plugins, load Theme ▼<br />
-       - Query: analyze incomming HTTP Request, query objects from database ▼<br />
-       - Rendering view ▼<br />
-      Earliest theme entry point in the request lifecycle: functions.php (between 'setup_theme' and 'after_setup_theme' hooks) <br />
+      In order to implement an OOP Theme, we have to understand how WorPress handles an incoming request: "the request
+      lifecycle" <br/>
+      Questions we're trying to answer here: <br/>
+      - where can we influence WordPress to suit our needs? <br/>
+      - how WordPress renders a theme view? ▼<br/>
+      I assume everyone here understands the basic concept of WordPress hooks (actions and filters)? -> Event system,
+      callback executed in specific point or situation, extend functionality
+      Essentially, there are 3 main stages (after the index.php calls the wp-blog-header.php which calls wp-config.php
+      and after that wp-settings.php) ▼<br/>
+      - Initialisation: load WordPress Core, load Plugins, load Theme ▼<br/>
+      - Query: analyze incomming HTTP Request, query objects from database ▼<br/>
+      - Rendering view ▼<br/>
+      Earliest theme entry point in the request lifecycle: functions.php (between 'setup_theme' and 'after_setup_theme'
+      hooks) <br/>
       This is where we are going to instantiate our theme object and register some basic theme setup hooks ▼
     </aside>
   </section>
@@ -209,20 +217,22 @@
   <section>
     <h2>Theme object</h2>
 
-    <img src="images/functions-php.png" width="500" style="float: left;" />
-    <img src="images/basic-theme-class.png" class="fragment" width="400" style="float: left;margin-left: 20px;" />
+    <img src="images/functions-php.png" width="500" style="float: left;"/>
+    <img src="images/basic-theme-class.png" class="fragment" width="400" style="float: left;margin-left: 20px;"/>
 
     <aside class="notes">
-      This theme class is a namespaced class, specifically a PSR-0 compatible system <br />
-       - PSR: PHP Specifications Request: standardize stuff <br />
-       - from PHP-FIG: Framework Interoperability Group <br />
-      Classes that conform to PSR-0 can be loaded automatically with an class autoloader <br />
-      The autoloader tries to locate the class definition file depending on the namespace (namespace part equals file and folder structure) ▼ <br />
+      This theme class is a namespaced class, specifically a PSR-0 compatible system <br/>
+      - PSR: PHP Specifications Request: standardize stuff <br/>
+      - from PHP-FIG: Framework Interoperability Group <br/>
+      Classes that conform to PSR-0 can be loaded automatically with an class autoloader <br/>
+      The autoloader tries to locate the class definition file depending on the namespace (namespace part equals file
+      and folder structure) ▼ <br/>
 
-      The AbstractTheme class from which this theme class inherits provides some convenience methods that are already registered on the suitable hooks <br />
-       - register views, menus and sidebars in setup() <br />
-       - register CSS and JS assets in assets() <br />
-       - register widgets in widgets()... <br />
+      The AbstractTheme class from which this theme class inherits provides some convenience methods that are already
+      registered on the suitable hooks <br/>
+      - register views, menus and sidebars in setup() <br/>
+      - register CSS and JS assets in assets() <br/>
+      - register widgets in widgets()... <br/>
 
     </aside>
   </section>
@@ -339,9 +349,49 @@
   <section>
     <h2>Good to go: basic theme</h2>
 
+    <img src="images/theme-object.png" width="300"/>
+
     <aside class="notes">
-      Now you could use a twig loader and you wouldn't need to touch any PHP again
-      (only write HTML with Twig, CSS and JS)
+      now that we have defined where files are, we could only be concerned about the view logic
+      and have a functioning theme, but well-organized:
+    </aside>
+  </section>
+
+  <section>
+    <h3>Example</h3>
+    <h2>simple view template</h2>
+    <table width="100%">
+      <tr>
+        <td width="400">
+          <img src="images/main-view-php.png"/>
+        </td>
+        <td style="vertical-align:top">
+          <ul class="default-margin-top fragment">
+            <li class="default-margin-top">View logic only in HTML</li>
+            <li class="default-margin-top">and basic template functions for the loop</li>
+          </ul>
+        </td>
+      </tr>
+    </table>
+    <aside class="notes">
+      we can render our registered views with the WordPress function get_template_part() <br />
+      but you are in object context: $this is the theme object!
+    </aside>
+  </section>
+
+  <section>
+    <h3>Or you could use</h3>
+    <h2>Twig</h2>
+    <h3>as a templating system</h3>
+
+    <img src="images/base-view-twig.png" width="530" style="float: left;" />
+    <img src="images/main-view-twig.png" width="390" style="float: left; margin-left: 20px; "/>
+
+    <aside class="notes">
+      Twig is a full-fledged templating system that allows <br />
+       - real template inheritance <br />
+       - block overrides <br />
+       - do not break HTML DOM Tree across files
     </aside>
   </section>
 
