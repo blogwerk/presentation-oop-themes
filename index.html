@@ -194,6 +194,7 @@
       Questions we're trying to answer here: <br />
        - where can we influence WordPress to suit our needs? <br />
        - how WordPress renders a theme view? ▼<br />
+      I assume everyone here understands the basic concept of WordPress hooks (actions and filters)? -> Event system, callback executed in specific point or situation, extend functionality
       Essentially, there are 3 main stages (after the index.php calls the wp-blog-header.php which calls wp-config.php and after that wp-settings.php) ▼<br />
        - Initialisation: load WordPress Core, load Plugins, load Theme ▼<br />
        - Query: analyze incomming HTTP Request, query objects from database ▼<br />
@@ -208,9 +209,21 @@
   <section>
     <h2>Theme object</h2>
 
+    <img src="images/functions-php.png" width="500" style="float: left;" />
+    <img src="images/basic-theme-class.png" class="fragment" width="400" style="float: left;margin-left: 20px;" />
+
     <aside class="notes">
-      Explain the functions.php: PSR-0 class loader, object initalization, convenience
-      methods: setup(), init(), assets(), admin(), adminAssets(), ...
+      This theme class is a namespaced class, specifically a PSR-0 compatible system <br />
+       - PSR: PHP Specifications Request: standardize stuff <br />
+       - from PHP-FIG: Framework Interoperability Group <br />
+      Classes that conform to PSR-0 can be loaded automatically with an class autoloader <br />
+      The autoloader tries to locate the class definition file depending on the namespace (namespace part equals file and folder structure) ▼ <br />
+
+      The AbstractTheme class from which this theme class inherits provides some convenience methods that are already registered on the suitable hooks <br />
+       - register views, menus and sidebars in setup() <br />
+       - register CSS and JS assets in assets() <br />
+       - register widgets in widgets()... <br />
+
     </aside>
   </section>
 </section>
