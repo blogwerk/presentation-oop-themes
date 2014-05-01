@@ -1,494 +1,645 @@
 <!doctype html>
 <html lang="en">
 
-	<head>
-		<meta charset="utf-8">
+<head>
+    <meta charset="utf-8">
 
-		<title>OOP in WordPress Themesk</title>
+    <title>OOP in WordPress Themesk</title>
 
-		<meta name="description" content="OOP in WordPress Themes">
-		<meta name="author" content="Tom Forrer & Michael Sebel">
+    <meta name="description" content="OOP in WordPress Themes">
+    <meta name="author" content="Tom Forrer & Michael Sebel">
 
-		<meta name="apple-mobile-web-app-capable" content="yes" />
-		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<link rel="stylesheet" href="css/reveal.min.css">
-		<link rel="stylesheet" href="css/theme/moon.css" id="theme">
+    <link rel="stylesheet" href="css/reveal.min.css">
+    <link rel="stylesheet" href="css/theme/moon.css" id="theme">
 
-		<!-- For syntax highlighting -->
-		<link rel="stylesheet" href="lib/css/zenburn.css">
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
 
-		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
-		<script>
-			if( window.location.search.match( /print-pdf/gi ) ) {
-				var link = document.createElement( 'link' );
-				link.rel = 'stylesheet';
-				link.type = 'text/css';
-				link.href = 'css/print/pdf.css';
-				document.getElementsByTagName( 'head' )[0].appendChild( link );
-			}
-		</script>
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+        if (window.location.search.match(/print-pdf/gi)) {
+            var link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            link.href = 'css/print/pdf.css';
+            document.getElementsByTagName('head')[0].appendChild(link);
+        }
+    </script>
 
     <style type="text/css">
-      .default-margin-top { margin-top:30px !important; }
-      .large-margin-top { margin-top:90px !important; }
+        .default-margin-top { margin-top: 30px !important; }
+        .large-margin-top { margin-top: 90px !important; }
+        .no-background { background: none !important; }
+        .no-border { border: none !important; box-shadow: none !important; }
+        .replacement { display: none; }
+        .current-fragment, .fragment.first { display: block; }
+        .current-fragment ~ .fragment { display: none; }
     </style>
 
-		<!--[if lt IE 9]>
-		<script src="lib/js/html5shiv.js"></script>
-		<![endif]-->
-	</head>
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
 
-	<body>
+<body>
 
-		<div class="reveal">
+<div class="reveal">
 
-			<!-- Any section element inside of this container is displayed as a slide -->
-			<div class="slides">
+<!-- Any section element inside of this container is displayed as a slide -->
+<div class="slides">
 
-				<section>
-					<h3>OOP in WordPress Themes</h3>
-					<h1>Like, really.</h1>
-					<p class="large-margin-top">
-						Created by <a href="http://twitter.com/tforrer">@tforrer</a> and <a href="http://twitter.com/msebel">@msebel</a>,
-					</p>
-          <p>
-            Software engineers at <a href="http://www.blogwerk.com">Blogwerk</a>.
-          </p>
-				</section>
+<section>
+    <h3>OOP in WordPress Themes</h3>
 
-        <section>
+    <h1>Like, really.</h1>
 
-          <section>
-            <h2>Anatomy of a WordPress theme</h2>
+    <p class="large-margin-top">
+        Created by <a href="http://twitter.com/tforrer">@tforrer</a> and <a href="http://twitter.com/msebel">@msebel</a>,
+    </p>
 
-            <ol>
-							<li>Predefined template hierarchy</li>
-							<li class="fragment">No defined structure for resources</li>
-							<li class="fragment">No (real) container for business logic</li>
-						</ol>
+    <p>
+        Software engineers at <a href="http://www.blogwerk.com">Blogwerk</a>.
+    </p>
+    <aside class="notes">
+        Thank you all for coming, we are honored to begin this series of talks... <br/>
 
-            <aside class="notes">
-              Small intro on why we decided to talk about this. Describe the fundamental files of a theme, show the template hierarchy,
-              show that it is very unflexible (template file paths),  messy (effectively two structures: template files + custom files on top)
-              no separation of view logic and business logic, no common best practices...
-            </aside>
-          </section>
+        We know, it's early in the morning, but we have to warn you: this is going to be a bit of a technical talk...
+        <br/>
 
-          <section>
-            <h2>The template hierarchy</h2>
+        How many of you have developed a WordPress theme at some point? <br/>
 
-            <img src="images/wordpress-template-hierarchy1.png">
-          </section>
+        We're gonna talk about themes! specifically about <br/>
+        - how you could structure your theme more flexibly <br/>
+        - how to use object-oriented programming patterns in your theme <br/>
 
-          <section>
-            <h2>Disadvantages</h2>
+        <br/>
+        - separation of concerns <br/>
+        - specifically, how to implement an oop theme <br/>
+        - psr-0 namespaces, autoloading <br/>
+        - advantages of using such a structure <br/>
+    </aside>
+</section>
 
-            <p>
-              If you need to provide a customer theme with many different templates and business logic, you'll face the following problems:
-            </p>
+<section>
 
-            <ol class="default-margin-top">
-							<li class="fragment">Everything is at root level: Page templates, template parts and the WordPress theme templates.</li>
-							<li class="fragment">With 50 files, you'll have difficulties finding the right one.</li>
-							<li class="fragment">You might even get naming problems.</li>
-						</ol>
-          </section>
+    <section>
+        <h2>Anatomy of a WordPress theme</h2>
 
-				</section>
+        <ol>
+            <li>Predefined template hierarchy</li>
+            <li class="fragment">No defined structure for resources</li>
+            <li class="fragment">No (real) container for business logic</li>
+        </ol>
 
-        <section>
-          <section>
-            <h2>Why bother?</h2>
+        <aside class="notes">
+            Describe the fundamental files of a theme, show the template hierarchy, <br/>
 
-            <ol>
-              <li class="fragment">Fun fact: We're a WordPress agency. That's why.</li>
-            </ol>
+            - the WordPress Codex describes in detail where to place your theme files <br/>
+            - WordPress will determine based on the query which of these files it should render ▼<br/>
+            - this is a bit unflexible: you can't decide to put your main views in a "views" folder (template file
+            paths)... ▼<br/>
+            - no separation of view logic and business logic <br/>
+            - this is also a bit messy: effectively two structures: template files + custom files on top<br/>
+            - no "best" common practices <br/>
+        </aside>
+    </section>
 
-            <p class="fragment default-margin-top">
-              We have 150+ individual customer solutions based on WordPress. What we want (need!)
-              is reusability, standards, clean object oriented code, a meaningful file structure.
-            </p>
+    <section>
+        <h2>The template hierarchy</h2>
 
-            <aside class="notes">
-              Who are we? ->Agency with individual customer solutions based on WordPress
-              After the twentieth theme, we want (need!) reusability, standards, clean code...
-              Show the structure of a organized theme (not WordPress-specific) with
-              loader, theme business logic, views, resources, vendor libraries, tests
-            </aside>
-          </section>
+        <img src="images/wordpress-template-hierarchy1.png">
+    </section>
 
-          <section>
-            <h2>Example: twentyfourteen</h2>
+    <section>
+        <h2>Disadvantages</h2>
 
-            <table width="100%">
-              <tr>
+        <p>
+            If you need to provide a customer theme with many different templates and business logic, you'll face the
+            following problems:
+        </p>
+
+        <ol class="default-margin-top">
+            <li class="fragment">Everything is at root level: Page templates, template parts and the WordPress theme
+                templates.
+            </li>
+            <li class="fragment">With 50 files, you'll have difficulties finding the right one.</li>
+            <li class="fragment">You might even get naming problems.</li>
+        </ol>
+    </section>
+
+</section>
+
+<section>
+    <section>
+        <h2>Why bother?</h2>
+
+        <ol>
+            <li class="fragment">Fun fact: We're a WordPress agency. That's why.</li>
+        </ol>
+
+        <p class="fragment default-margin-top">
+            We have 150+ individual customer solutions based on WordPress. What we want (need!)
+            is reusability, standards, clean object oriented code, a meaningful file structure.
+        </p>
+
+        <aside class="notes">
+            Who are we? ->Agency with individual customer solutions based on WordPress
+            After the twentieth theme, we want (need!) reusability, standards, clean code...
+            Show the structure of a organized theme (not WordPress-specific) with
+            loader, theme business logic, views, resources, vendor libraries, tests
+        </aside>
+    </section>
+
+    <section>
+        <h2>Example: twentyfourteen</h2>
+
+        <table width="100%">
+            <tr>
                 <td width="300">
-                  <img src="images/twentyfourteen-hierarchy.png" />
+                    <img src="images/twentyfourteen-hierarchy.png"/>
                 </td>
                 <td style="vertical-align:top">
-                  <ul class="default-margin-top">
-                    <li class="fragment">This is not a bad example.</li>
-                    <li class="fragment default-margin-top">But it will "only" provide you with very basic blog functionality.</li>
-                    <li class="fragment default-margin-top">But what if we have to add more customer specific templates/views?</li>
-                  </ul>
+                    <ul class="default-margin-top">
+                        <li class="fragment">This is not a bad example.</li>
+                        <li class="fragment default-margin-top">But it will "only" provide you with very basic blog
+                            functionality.
+                        </li>
+                        <li class="fragment default-margin-top">But what if we have to add more customer specific
+                            templates/views?
+                        </li>
+                    </ul>
                 </td>
-              </tr>
-            </table>
+            </tr>
+        </table>
 
-          </section>
+    </section>
 
-				</section>
+</section>
 
-        <section>
-          <section>
-            <h2>Request lifecycle</h2>
+<section>
+    <section>
+        <h2>Request lifecycle</h2>
 
-            <aside class="notes">
-              Show how WordPress executes a request and what role the theme code plays at
-              different locations during the execution:
-              plugins, theme, initalisation, query, template loader
-            </aside>
-          </section>
-				</section>
+        <img src="images/request-lifecycle-5.png" class="no-border no-background fragment replacement"
+             data-fragment-index="4"/>
+        <img src="images/request-lifecycle-4.png" class="no-border no-background fragment replacement"
+             data-fragment-index="3"/>
+        <img src="images/request-lifecycle-3.png" class="no-border no-background fragment replacement"
+             data-fragment-index="2"/>
+        <img src="images/request-lifecycle-2.png" class="no-border no-background fragment replacement"
+             data-fragment-index="1"/>
+        <img src="images/request-lifecycle-1.png" class="no-border no-background fragment first"
+             data-fragment-index="0"/>
 
-        <section>
-          <section>
-            <h2>Theme object</h2>
+        <aside class="notes">
+            In order to implement an OOP Theme, we have to understand how WorPress handles an incoming request: "the
+            request
+            lifecycle" <br/>
+            Questions we're trying to answer here: <br/>
+            - where can we influence WordPress to suit our needs? <br/>
+            - how WordPress renders a theme view? ▼<br/>
+            I assume everyone here understands the basic concept of WordPress hooks (actions and filters)? -> Event
+            system,
+            callback executed in specific point or situation, extend functionality
+            Essentially, there are 3 main stages (after the index.php calls the wp-blog-header.php which calls
+            wp-config.php
+            and after that wp-settings.php) ▼<br/>
+            - Initialisation: load WordPress Core, load Plugins, load Theme ▼<br/>
+            - Query: analyze incomming HTTP Request, query objects from database ▼<br/>
+            - Rendering view ▼<br/>
+            Earliest theme entry point in the request lifecycle: functions.php (between 'setup_theme' and
+            'after_setup_theme'
+            hooks) <br/>
+            This is where we are going to instantiate our theme object and register some basic theme setup hooks ▼
+        </aside>
+    </section>
+</section>
 
-            <aside class="notes">
-              Explain the functions.php: PSR-0 class loader, object initalization, convenience
-              methods: setup(), init(), assets(), admin(), adminAssets(), ...
-            </aside>
-          </section>
-				</section>
+<section>
+    <section>
+        <h2>Theme object</h2>
 
-        <section>
-          <section>
-            <h2>Views</h2>
+        <img src="images/functions-php.png" width="500" style="float: left;"/>
+        <img src="images/basic-theme-class.png" class="fragment" width="400" style="float: left;margin-left: 20px;"/>
 
-            <p class="default-margin-top">
-              What's the goal? In complex themes you may have a lot more views to store: ajax dialogs,
-              backend views, widget content, template parts, page templates, etc.
-            </p>
+        <aside class="notes">
+            This theme class is a namespaced class, specifically a PSR-0 compatible system <br/>
+            - PSR: PHP Specifications Request: standardize stuff <br/>
+            - from PHP-FIG: Framework Interoperability Group <br/>
+            Classes that conform to PSR-0 can be loaded automatically with an class autoloader <br/>
+            The autoloader tries to locate the class definition file depending on the namespace (namespace part equals
+            file
+            and folder structure) ▼ <br/>
+
+            The AbstractTheme class from which this theme class inherits provides some convenience methods that are
+            already
+            registered on the suitable hooks <br/>
+            - register views, menus and sidebars in setup() <br/>
+            - register CSS and JS assets in assets() <br/>
+            - register widgets in widgets()... <br/>
+
+        </aside>
+    </section>
+</section>
+
+<section>
+    <section>
+        <h2>Views</h2>
+
+        <p class="default-margin-top">
+            What's the goal? In complex themes you may have a lot more views to store: ajax dialogs,
+            backend views, widget content, template parts, page templates, etc.
+        </p>
 
 
-            <aside class="notes">
-              organize the view files in a meaningfull way: place them where you want,
-              use existing view "templates" from the WordPress template hierarchy, define your
-              own views (get_template_part). Show the clean code from a view with only view code
-              (i.e. only the loop and html), access theme object from a private object context, ...
-              Resolve the problem: "a bunch of files in the theme root"
-            </aside>
-          </section>
+        <aside class="notes">
+            organize the view files in a meaningfull way: place them where you want,
+            use existing view "templates" from the WordPress template hierarchy, define your
+            own views (get_template_part). Show the clean code from a view with only view code
+            (i.e. only the loop and html), access theme object from a private object context, ...
+            Resolve the problem: "a bunch of files in the theme root"
+        </aside>
+    </section>
 
-          <section>
-            <h1>Now how do we organize this?</h1>
-          </section>
+    <section>
+        <h1>Now how do we organize this?</h1>
+    </section>
 
-          <section>
-            <h2>Yo mamma already told you:</h2>
-            <h2>Go clean up your room</h2>
+    <section>
+        <h2>Yo mamma already told you:</h2>
 
-            <ol>
-              <li>Organize your files in a meaningfull way</li>
-              <li class="fragment">Put the WordPress theme files where you need them</li>
-              <li class="fragment">Use <strong>*more*</strong> template parts</li>
-              <li class="fragment">Add other HTML only things like Ajax Dialogs</li>
-            </ol>
+        <h2>Go clean up your room</h2>
 
-          </section>
+        <ol>
+            <li>Organize your files in a meaningfull way</li>
+            <li class="fragment">Put the WordPress theme files where you need them</li>
+            <li class="fragment">Use <strong>*more*</strong> template parts</li>
+            <li class="fragment">Add other HTML only things like Ajax Dialogs</li>
+        </ol>
 
-          <section>
-            <h2>Example: mobilesport.ch</h2>
+    </section>
 
-            <table width="100%">
-              <tr>
+    <section>
+        <h2>Example: mobilesport.ch</h2>
+
+        <table width="100%">
+            <tr>
                 <td width="300">
-                  <img src="images/mobilesport-example.png" />
+                    <img src="images/mobilesport-example.png"/>
                 </td>
                 <td style="vertical-align:top">
-                  <ul class="default-margin-top">
-                    <li class="fragment">Customer Theme with many views. It has a total of 60 views.</li>
-                    <li class="fragment default-margin-top">One of the first projects to use our oop-theme structure.</li>
-                    <li class="fragment default-margin-top">Views are separated by concerns.</li>
-                  </ul>
+                    <ul class="default-margin-top">
+                        <li class="fragment">Customer Theme with many views. It has a total of 60 views.</li>
+                        <li class="fragment default-margin-top">One of the first projects to use our oop-theme
+                            structure.
+                        </li>
+                        <li class="fragment default-margin-top">Views are separated by concerns.</li>
+                    </ul>
 
-                  <img src="images/mobilesport-templates.png" class="fragment default-margin-top">
+                    <img src="images/mobilesport-templates.png" class="fragment default-margin-top">
                 </td>
-              </tr>
-            </table>
+            </tr>
+        </table>
 
-          </section>
+    </section>
 
-				</section>
+</section>
 
-        <section>
+<section>
 
-          <section>
-            <h2>Resources</h2>
+    <section>
+        <h2>Resources</h2>
 
-            <p>
-              What about everything else? (S)CSS, scripts, language files, images, fonts? You <em><strong>could</strong></em> do what
-              you want here, but let us give you some advice.
-            </p>
+        <p>
+            What about everything else? (S)CSS, scripts, language files, images, fonts? You
+            <em><strong>could</strong></em> do what
+            you want here, but let us give you some advice.
+        </p>
 
-            <aside class="notes">
-              organize your static/client resources separately: css, js, language files, images, ...
-              separatation of concerns
-            </aside>
-          </section>
+        <aside class="notes">
+            organize your static/client resources separately: css, js, language files, images, ...
+            separatation of concerns
+        </aside>
+    </section>
 
-          <section>
-            <h2>The file structure</h2>
+    <section>
+        <h2>The file structure</h2>
 
-            <table width="100%">
-              <tr>
+        <table width="100%">
+            <tr>
                 <td width="250">
-                  <img src="images/resources-example.png" />
+                    <img src="images/resources-example.png"/>
                 </td>
                 <td style="vertical-align:top">
-                  <ul class="default-margin-top">
-                    <li class="fragment">resources: fonts, images, language files, scripts, styles. Feel free for example to create sub folders like "backend" or "frontend" for styles.</li>
-                    <li class="fragment default-margin-top">src: Namespaced business logic.</li>
-                    <li class="fragment default-margin-top">views: HTML/PHP template files.</li>
-                    <li class="fragment default-margin-top">Theme Root: only style.css, index.php and functions.php to load the stack</li>
-                  </ul>
+                    <ul class="default-margin-top">
+                        <li class="fragment">resources: fonts, images, language files, scripts, styles. Feel free for
+                            example to create sub folders like "backend" or "frontend" for styles.
+                        </li>
+                        <li class="fragment default-margin-top">src: Namespaced business logic.</li>
+                        <li class="fragment default-margin-top">views: HTML/PHP template files.</li>
+                        <li class="fragment default-margin-top">Theme Root: only style.css, index.php and functions.php
+                            to load the stack
+                        </li>
+                    </ul>
                 </td>
-              </tr>
-            </table>
-          </section>
+            </tr>
+        </table>
+    </section>
 
-				</section>
+</section>
 
-        <section>
+<section>
 
-          <section>
-            <h2>Good to go: basic theme</h2>
+    <section>
+        <h2>Good to go: basic theme</h2>
 
-            <aside class="notes">
-              Now you could use a twig loader and you wouldn't need to touch any PHP again
-              (only write HTML with Twig, CSS and JS)
-            </aside>
-          </section>
+        <img src="images/theme-object.png" width="300"/>
 
-				</section>
+        <aside class="notes">
+            now that we have defined where files are, we could only be concerned about the view logic
+            and have a functioning theme, but well-organized:
+        </aside>
+    </section>
 
-        <section>
+    <section>
+        <h3>Example</h3>
 
-          <section>
-            <h2>Component-based theme extensions</h2>
+        <h2>simple view template</h2>
+        <table width="100%">
+            <tr>
+                <td width="400">
+                    <img src="images/main-view-php.png"/>
+                </td>
+                <td style="vertical-align:top">
+                    <ul class="default-margin-top fragment">
+                        <li class="default-margin-top">View logic only in HTML</li>
+                        <li class="default-margin-top">and basic template functions for the loop</li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+        <aside class="notes">
+            we can render our registered views with the WordPress function get_template_part() <br/>
+            but you are in object context: $this is the theme object!
+        </aside>
+    </section>
 
-            <ol>
-              <li>Hello1</li>
-              <li class="fragment">Hello2</li>
-              <li class="fragment">Hello3</li>
-            </ol>
+    <section>
+        <h3>Or you could use</h3>
 
-            <aside class="notes">
-              How to extend the theme with custom functionalities
-              (where no suitable/satisfying plugins exist)
-              discuss the component based approach, explain the advanteges of namespacing,
-              OOP encapsulation, write clean code (small classes, that do one thing, but one thing well)
-              use namespaces as a form of documentation (with use) and autocompletion
-            </aside>
-          </section>
+        <h2>Twig</h2>
 
-          <section>
-            <h2>Handling new requirements</h2>
+        <h3>as a templating system</h3>
 
-            <aside class="notes">
-              Maybe an ensi example on how we got the requirements for the technical forum and why we
-              developet the classes as they are today.
-            </aside>
-          </section>
+        <img src="images/base-view-twig.png" width="530" style="float: left;"/>
+        <img src="images/main-view-twig.png" width="390" style="float: left; margin-left: 20px; "/>
 
-          <section>
-            <h2>Encapsulation</h2>
+        <aside class="notes">
+            Twig is a full-fledged templating system that allows <br/>
+            - real template inheritance <br/>
+            - block overrides <br/>
+            - do not break HTML DOM Tree across files
+        </aside>
+    </section>
 
-            <p>Another example of encapsulation. Recently we've had a severe case of "oh that class starts growing too big".</p>
+</section>
 
-            <h3 class="fragment large-margin-top">class Challenger extends Entity</h3>
+<section>
 
-            <ul class="fragment default-margin-top">
-              <li>Naming is important: We chose "challenger" instead of "user"</li>
-              <li>Has methods like "getProfileLink", "getDevice" or "getAvatar"</li>
-            </ul>
+    <section>
+        <h2>Component-based theme extensions</h2>
 
-            <aside class="notes">
-              A stepchallenge.ch example on how we realized, that there are a lot of friendship functions on the
-              challenger entity and then switched to a friendship entity. Making sure that it still works, by checking
-              namespace usage in other classes
-            </aside>
-          </section>
+        <ol>
+            <li>Hello1</li>
+            <li class="fragment">Hello2</li>
+            <li class="fragment">Hello3</li>
+        </ol>
 
-          <section>
-            <h2>Encapsulation</h2>
+        <aside class="notes">
+            How to extend the theme with custom functionalities
+            (where no suitable/satisfying plugins exist)
+            discuss the component based approach, explain the advanteges of namespacing,
+            OOP encapsulation, write clean code (small classes, that do one thing, but one thing well)
+            use namespaces as a form of documentation (with use) and autocompletion
+        </aside>
+    </section>
 
-            <p>
-              Then we wanted to add friendship functionality to the challenger entity.
-              While developing, we noticed, that it's a bit more complex than expected.
-            </p>
+    <section>
+        <h2>Handling new requirements</h2>
 
-            <h3 class="fragment large-margin-top">
-              And suddenly the challenger class grew from 195 lines to around 500 lines.
-            </h3>
+        <aside class="notes">
+            Maybe an ensi example on how we got the requirements for the technical forum and why we
+            developet the classes as they are today.
+        </aside>
+    </section>
 
-            <p class="fragment default-margin-top">
-              Solution: Separating the concerns, by giving the friendship their own entity class.
-              Now we have a 200 and 250 line class.
-            </p>
-          </section>
+    <section>
+        <h2>Encapsulation</h2>
 
-          <section>
-            <h2>Encapsulation</h2>
-            <img src="images/challenger-wrapper.png" />
-          </section>
+        <p>Another example of encapsulation. Recently we've had a severe case of "oh that class starts growing too
+            big".</p>
 
-          <section>
-            <h2>Encapsulation</h2>
-            <img src="images/friendship-code.png" />
-          </section>
+        <h3 class="fragment large-margin-top">class Challenger extends Entity</h3>
 
-				</section>
+        <ul class="fragment default-margin-top">
+            <li>Naming is important: We chose "challenger" instead of "user"</li>
+            <li>Has methods like "getProfileLink", "getDevice" or "getAvatar"</li>
+        </ul>
 
-        <section>
+        <aside class="notes">
+            A stepchallenge.ch example on how we realized, that there are a lot of friendship functions on the
+            challenger entity and then switched to a friendship entity. Making sure that it still works, by checking
+            namespace usage in other classes
+        </aside>
+    </section>
 
-          <section>
-            <h2>Examples</h2>
+    <section>
+        <h2>Encapsulation</h2>
 
-            <h3 class="large-margin-top">Website for ENSI based on WordPress</h3>
-            <h3 class="default-margin-top">Individual Software on top of WordPress</h3>
+        <p>
+            Then we wanted to add friendship functionality to the challenger entity.
+            While developing, we noticed, that it's a bit more complex than expected.
+        </p>
 
-            <aside class="notes">
-              ENSI (with screenshots?): Technical Forum, Topics, Documents, Menus, Page Templates, ...
-              ENSI-Rat: child theme
-              StepChallenge: Application build on top of WordPress with all relevant application code in theme
-            </aside>
-          </section>
+        <h3 class="fragment large-margin-top">
+            And suddenly the challenger class grew from 195 lines to around 500 lines.
+        </h3>
 
-          <section>
-            <h2>A complex website: ensi.ch relaunch</h2>
+        <p class="fragment default-margin-top">
+            Solution: Separating the concerns, by giving the friendship their own entity class.
+            Now we have a 200 and 250 line class.
+        </p>
+    </section>
+
+    <section>
+        <h2>Encapsulation</h2>
+        <img src="images/challenger-wrapper.png"/>
+    </section>
+
+    <section>
+        <h2>Encapsulation</h2>
+        <img src="images/friendship-code.png"/>
+    </section>
+
+</section>
+
+<section>
+
+    <section>
+        <h2>Examples</h2>
+
+        <h3 class="large-margin-top">Website for ENSI based on WordPress</h3>
+
+        <h3 class="default-margin-top">Individual Software on top of WordPress</h3>
+
+        <aside class="notes">
+            ENSI (with screenshots?): Technical Forum, Topics, Documents, Menus, Page Templates, ...
+            ENSI-Rat: child theme
+            StepChallenge: Application build on top of WordPress with all relevant application code in theme
+        </aside>
+    </section>
+
+    <section>
+        <h2>A complex website: ensi.ch relaunch</h2>
 
 
-          </section>
+    </section>
 
-          <section>
-            <h2>What about child themes?</h2>
+    <section>
+        <h2>What about child themes?</h2>
 
 
-          </section>
+    </section>
 
-          <section>
-            <h2>stepchallenge.ch: Individual software</h2>
+    <section>
+        <h2>stepchallenge.ch: Individual software</h2>
 
-            <p class="default-margin-top">
-              Connect your Fitbit, Jawbone or Withings device and challenge other users on the platform.
-              The app should motivate end users to have more activity that their opponent over a period of time.
-            </p>
+        <p class="default-margin-top">
+            Connect your Fitbit, Jawbone or Withings device and challenge other users on the platform.
+            The app should motivate end users to have more activity that their opponent over a period of time.
+        </p>
 
-            <h1 class="default-margin-top fragment">Why. On Earth.</h1>
-            <h3 class="default-margin-top fragment">Would someone use WordPress to code a web app?</h3>
-          </section>
+        <h1 class="default-margin-top fragment">Why. On Earth.</h1>
 
-          <section>
-            <h1>Well, why not?</h1>
+        <h3 class="default-margin-top fragment">Would someone use WordPress to code a web app?</h3>
+    </section>
 
-            <ul class="default-margin-top">
-              <li class="fragment">Most important: Namespaces, structure, components.</li>
-              <li class="fragment">Second: I know WordPress inside out.</li>
-              <li class="fragment">
+    <section>
+        <h1>Well, why not?</h1>
+
+        <ul class="default-margin-top">
+            <li class="fragment">Most important: Namespaces, structure, components.</li>
+            <li class="fragment">Second: I know WordPress inside out.</li>
+            <li class="fragment">
                 Make use of WordPress: Rewriting, page templates, static content, cache functions.
                 Extend the backend with custom admin capabilities (e.g. challenge- or user management).
-              </li>
-              <li class="fragment">Load balanced WordPress infrastructure.</li>
-            </ul>
+            </li>
+            <li class="fragment">Load balanced WordPress infrastructure.</li>
+        </ul>
 
-            <div class="fragment large-margin-top">
-              <h2>Let's have a look at some code</h2>
-              <p class="default-margin-top">
-                The theme has around 40 views and 30 classes. <br /> And there's still a lot of work to do.
-              </p>
-            </div>
+        <div class="fragment large-margin-top">
+            <h2>Let's have a look at some code</h2>
 
-          </section>
+            <p class="default-margin-top">
+                The theme has around 40 views and 30 classes. <br/> And there's still a lot of work to do.
+            </p>
+        </div>
 
-				</section>
+    </section>
 
-        <section>
-          <section>
-            <h2>Outlook: Tests, dependencies</h2>
+</section>
 
-            <aside class="notes">
-              Now that we have small, well-structured units of code: we can test them... ->behat, phpunit, selenium, ....
-              WordPress Core dependencies should be wrapped, plugin/library dependencies should be available from a service container
-            </aside>
-          </section>
-				</section>
+<section>
+    <section>
+        <h2>Outlook: Tests, dependencies</h2>
 
-        <section>
-          <section>
-            <h1>Check us out</h1>
-            <h2>on Github</h2>
+        <aside class="notes">
+            Now that we have small, well-structured units of code: we can test them... ->behat, phpunit, selenium, ....
+            WordPress Core dependencies should be wrapped, plugin/library dependencies should be available from a
+            service container
+        </aside>
+    </section>
+</section>
 
-            <a href="https://github.com/blogwerk/oop-theme-plugin" class="default-margin-top">
-              github.com/blogwerk/oop-theme-plugin
-            </a>
-            <br />
-            <a href="https://github.com/blogwerk/oop-theme-example" class="default-margin-top">
-              github.com/blogwerk/oop-theme-example
-            </a>
+<section>
+    <section>
+        <h1>Check us out</h1>
 
-            <h3 class="large-margin-top">Follow us on Twitter</h3>
+        <h2>on Github</h2>
 
-            <a href="https://twitter.com/tforrer" class="default-margin-top">@tforrer</a>,
-            <a href="https://twitter.com/msebel" class="default-margin-top">@msebel</a> and
-            <a href="https://twitter.com/blogwerk" class="default-margin-top">@blogwerk</a>
+        <a href="https://github.com/blogwerk/oop-theme-plugin" class="default-margin-top">
+            github.com/blogwerk/oop-theme-plugin
+        </a>
+        <br/>
+        <a href="https://github.com/blogwerk/oop-theme-example" class="default-margin-top">
+            github.com/blogwerk/oop-theme-example
+        </a>
 
-            <aside class="notes">
-              yay. yes. is good.
-            </aside>
-          </section>
-				</section>
+        <h3 class="large-margin-top">Follow us on Twitter</h3>
 
-			</div>
+        <a href="https://twitter.com/tforrer" class="default-margin-top">@tforrer</a>,
+        <a href="https://twitter.com/msebel" class="default-margin-top">@msebel</a> and
+        <a href="https://twitter.com/blogwerk" class="default-margin-top">@blogwerk</a>
 
-		</div>
+        <aside class="notes">
+            yay. yes. is good.
+        </aside>
+    </section>
+</section>
 
-		<script src="lib/js/head.min.js"></script>
-		<script src="js/reveal.min.js"></script>
+</div>
 
-		<script>
+</div>
 
-			// Full list of configuration options available here:
-			// https://github.com/hakimel/reveal.js#configuration
-			Reveal.initialize({
-				controls: true,
-				progress: true,
-				history: true,
-				center: true,
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.min.js"></script>
 
-				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
-				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+<script>
 
-				// Parallax scrolling
-				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
-				// parallaxBackgroundSize: '2100px 900px',
+    // Full list of configuration options available here:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
 
-				// Optional libraries used to extend on reveal.js
-				dependencies: [
-					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
-					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
-					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
-				]
-			});
+        theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
 
-		</script>
+        // Parallax scrolling
+        // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+        // parallaxBackgroundSize: '2100px 900px',
 
-	</body>
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+            { src: 'lib/js/classList.js', condition: function () {
+                return !document.body.classList;
+            } },
+            { src: 'plugin/markdown/marked.js', condition: function () {
+                return !!document.querySelector('[data-markdown]');
+            } },
+            { src: 'plugin/markdown/markdown.js', condition: function () {
+                return !!document.querySelector('[data-markdown]');
+            } },
+            { src: 'plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            } },
+            { src: 'plugin/zoom-js/zoom.js', async: true, condition: function () {
+                return !!document.body.classList;
+            } },
+            { src: 'plugin/notes/notes.js', async: true, condition: function () {
+                return !!document.body.classList;
+            } }
+        ]
+    });
+
+</script>
+
+</body>
 </html>
