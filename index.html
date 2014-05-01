@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
 
-    <title>OOP in WordPress Themesk</title>
+    <title>OOP in WordPress Themes</title>
 
     <meta name="description" content="OOP in WordPress Themes">
     <meta name="author" content="Tom Forrer & Michael Sebel">
@@ -90,10 +90,10 @@
     <section>
         <h2>Anatomy of a WordPress theme</h2>
 
-        <ol>
+        <ol class="fragment default-margin-top" style="width:600px;">
             <li>Predefined template hierarchy</li>
-            <li class="fragment">No defined structure for resources</li>
-            <li class="fragment">No (real) container for business logic</li>
+            <li>No defined structure for resources</li>
+            <li>No (real) container for business logic</li>
         </ol>
 
         <aside class="notes">
@@ -119,16 +119,16 @@
         <h2>Disadvantages</h2>
 
         <p>
-            If you need to provide a customer theme with many different templates and business logic, you'll face the
+            If you need to provide a customer theme with many different templates and business logic, you'll some
             following problems:
         </p>
 
-        <ol class="default-margin-top">
-            <li class="fragment">Everything is at root level: Page templates, template parts and the WordPress theme
+        <ol class="default-margin-top fragment">
+            <li>Everything is at root level: Page templates, template parts and the WordPress theme
                 templates.
             </li>
-            <li class="fragment">With 50 files, you'll have difficulties finding the right one.</li>
-            <li class="fragment">You might even get naming problems.</li>
+            <li>With 50+ files, you'll have difficulties finding the right one.</li>
+            <li>You might even get naming problems.</li>
         </ol>
     </section>
 
@@ -138,9 +138,7 @@
     <section>
         <h2>Why bother?</h2>
 
-        <ol>
-            <li class="fragment">Fun fact: We're a WordPress agency. That's why.</li>
-        </ol>
+        <h4 class="fragment">Fun fact: We're a WordPress agency. That's why.</h4>
 
         <p class="fragment default-margin-top">
             We have 150+ individual customer solutions based on WordPress. What we want (need!)
@@ -164,12 +162,12 @@
                     <img src="images/twentyfourteen-hierarchy.png"/>
                 </td>
                 <td style="vertical-align:top">
-                    <ul class="default-margin-top">
-                        <li class="fragment">This is not a bad example.</li>
-                        <li class="fragment default-margin-top">But it will "only" provide you with very basic blog
+                    <ul class="fragment default-margin-top">
+                        <li>This is not a bad example.</li>
+                        <li class="default-margin-top">But it will "only" provide you with very basic blog
                             functionality.
                         </li>
-                        <li class="fragment default-margin-top">But what if we have to add more customer specific
+                        <li class="default-margin-top">But what if we have to add more customer specific
                             templates/views?
                         </li>
                     </ul>
@@ -252,17 +250,24 @@
         <h2>Views</h2>
 
         <p class="default-margin-top">
-            What's the goal? In complex themes you may have a lot more views to store: ajax dialogs,
-            backend views, widget content, template parts, page templates, etc.
+            In complex themes you have a lot more views to store
         </p>
+
+        <div class="fragment">
+          <h4 class="default-margin-top">ajax dialogs, backend views, widget content,</h4>
+          <h4 class="default-margin-top">template parts, page templates, etc.</h4>
+        </div>
+
+        <h1 class="fragment large-margin-top">What's our goal?</h1>
 
 
         <aside class="notes">
-            organize the view files in a meaningfull way: place them where you want,
-            use existing view "templates" from the WordPress template hierarchy, define your
-            own views (get_template_part). Show the clean code from a view with only view code
-            (i.e. only the loop and html), access theme object from a private object context, ...
-            Resolve the problem: "a bunch of files in the theme root"
+            What's the goal:
+            organize the view files in a meaningfull way: place them where you want,<br />
+            use existing view "templates" from the WordPress template hierarchy, define your<br />
+            own views (get_template_part). Show the clean code from a view with only view code<br />
+            (i.e. only the loop and html), access theme object from a private object context, ...<br />
+            Resolve the problem: "a bunch of files in the theme root"<br />
         </aside>
     </section>
 
@@ -271,15 +276,14 @@
     </section>
 
     <section>
-        <h2>Yo mamma already told you:</h2>
+        <h3>Yo mamma already told you:</h3>
 
-        <h2>Go clean up your room</h2>
+        <h2>clean up your room</h2>
 
-        <ol>
-            <li>Organize your files in a meaningfull way</li>
-            <li class="fragment">Put the WordPress theme files where you need them</li>
-            <li class="fragment">Use <strong>*more*</strong> template parts</li>
-            <li class="fragment">Add other HTML only things like Ajax Dialogs</li>
+        <ol class="default-margin-top fragment" style="width:700px">
+            <li>Organize your files in a meaningfull way.</li>
+            <li>Use <strong>*more*</strong> template parts.</li>
+            <li>Add other HTML views, like AJAX dialogs.</li>
         </ol>
 
     </section>
@@ -293,12 +297,12 @@
                     <img src="images/mobilesport-example.png"/>
                 </td>
                 <td style="vertical-align:top">
-                    <ul class="default-margin-top">
-                        <li class="fragment">Customer Theme with many views. It has a total of 60 views.</li>
-                        <li class="fragment default-margin-top">One of the first projects to use our oop-theme
+                    <ul class="default-margin-top fragment">
+                        <li>Customer Theme with many views. It has a total of 60 views.</li>
+                        <li class="default-margin-top">One of the first projects to use our oop-theme
                             structure.
                         </li>
-                        <li class="fragment default-margin-top">Views are separated by concerns.</li>
+                        <li class="default-margin-top">Views are separated by concerns.</li>
                     </ul>
 
                     <img src="images/mobilesport-templates.png" class="fragment default-margin-top">
@@ -336,13 +340,13 @@
                     <img src="images/resources-example.png"/>
                 </td>
                 <td style="vertical-align:top">
-                    <ul class="default-margin-top">
-                        <li class="fragment">resources: fonts, images, language files, scripts, styles. Feel free for
+                    <ul class="default-margin-top fragment">
+                        <li>resources: fonts, images, language files, scripts, styles. Feel free for
                             example to create sub folders like "backend" or "frontend" for styles.
                         </li>
-                        <li class="fragment default-margin-top">src: Namespaced business logic.</li>
-                        <li class="fragment default-margin-top">views: HTML/PHP template files.</li>
-                        <li class="fragment default-margin-top">Theme Root: only style.css, index.php and functions.php
+                        <li class="default-margin-top">src: Namespaced business logic.</li>
+                        <li class="default-margin-top">views: HTML/PHP template files.</li>
+                        <li class="default-margin-top">Theme Root: only style.css, index.php and functions.php
                             to load the stack
                         </li>
                     </ul>
@@ -414,12 +418,13 @@
     <section>
         <h2>Component-based theme extensions</h2>
 
-        <p>Extend a theme, where no suitable / satisfying plugins exist</p>
-        <ol>
-            <li class="fragment default-margin-top">Each additional functionality can be organized in components</li>
-            <li class="fragment default-margin-top">register custom post types and taxonomies</li>
-            <li class="fragment default-margin-top">register their specific views</li>
-            <li class="fragment default-margin-top">provide backend customizations</li>
+        <h4 class="default-margin-top">Extend a theme, where no suitable / satisfying plugins exist</h4>
+
+        <ol class="fragment" style="width:990px">
+            <li class="default-margin-top">Each additional functionality can be organized in components</li>
+            <li class="default-margin-top">Register custom post types and taxonomies</li>
+            <li class="default-margin-top">Register their specific views</li>
+            <li class="default-margin-top">Provide backend customizations</li>
         </ol>
 
         <aside class="notes">
@@ -441,26 +446,18 @@
     </section>
 
     <section>
-        <h2>Handling new requirements</h2>
-
-        <aside class="notes">
-            Maybe an ensi example on how we got the requirements for the technical forum and why we
-            developet the classes as they are today.
-        </aside>
-    </section>
-
-    <section>
         <h2>Encapsulation</h2>
 
-        <p>Another example of encapsulation. Recently we've had a severe case of "oh that class starts growing too
-            big".</p>
+        <p>Another example of encapsulation. Recently we've had a severe case of "oh that class starts growing too big".</p>
 
-        <h3 class="fragment large-margin-top">class Challenger extends Entity</h3>
+        <div class="fragment">
+            <h3 class=" large-margin-top">class Challenger extends Entity</h3>
 
-        <ul class="fragment default-margin-top">
-            <li>Naming is important: We chose "challenger" instead of "user"</li>
-            <li>Has methods like "getProfileLink", "getDevice" or "getAvatar"</li>
-        </ul>
+            <ul class="default-margin-top">
+                <li>Naming is important: We chose "challenger" instead of "user"</li>
+                <li>Has methods like "getProfileLink", "getDevice" or "getAvatar"</li>
+            </ul>
+        </div>
 
         <aside class="notes">
             A stepchallenge.ch example on how we realized, that there are a lot of friendship functions on the
@@ -478,22 +475,22 @@
         </p>
 
         <h3 class="fragment large-margin-top">
-            And suddenly the challenger class grew from 195 lines to around 500 lines.
+            And suddenly the challenger class grew from 200 lines to around 500 lines.
         </h3>
 
         <p class="fragment default-margin-top">
             Solution: Separating the concerns, by giving the friendship their own entity class.
-            Now we have a 200 and 250 line class.
+            Now we have a 200 and 300 line class.
         </p>
     </section>
 
     <section>
-        <h2>Encapsulation</h2>
+        <h2>The results of encapsulation</h2>
         <img src="images/challenger-wrapper.png"/>
     </section>
 
     <section>
-        <h2>Encapsulation</h2>
+        <h2>The results of encapsulation</h2>
         <img src="images/friendship-code.png"/>
     </section>
 
@@ -560,7 +557,7 @@
         <h2>What about child themes?</h2>
 
         <h3 class="fragment">they work too</h3>
-        <h4 class="fragment">but</h4>
+        <h1 class="fragment">but</h1>
         <ul class="default-margin-top fragment">
             <li class="default-margin-top">Real inheritance of theme class (or component classes)</li>
             <li class="default-margin-top">Resource and view files overridable in any location</li>
@@ -577,7 +574,7 @@
 
         <p class="default-margin-top">
             Connect your Fitbit, Jawbone or Withings device and challenge other users on the platform.
-            The app should motivate end users to have more activity that their opponent over a period of time.
+            The app should motivate end users to have more activity than their opponent over a period of time.
         </p>
 
         <h1 class="default-margin-top fragment">Why. On Earth.</h1>
@@ -588,23 +585,16 @@
     <section>
         <h1>Well, why not?</h1>
 
-        <ul class="default-margin-top">
-            <li class="fragment">Most important: Namespaces, structure, components.</li>
-            <li class="fragment">Second: I know WordPress inside out.</li>
-            <li class="fragment">
+        <ul class="fragment">
+            <li class="default-margin-top">Most important: Namespaces, structure, components.</li>
+            <li class="default-margin-top">Second: I know WordPress inside out.</li>
+            <li class="default-margin-top">
                 Make use of WordPress: Rewriting, page templates, static content, cache functions.
                 Extend the backend with custom admin capabilities (e.g. challenge- or user management).
             </li>
-            <li class="fragment">Load balanced WordPress infrastructure.</li>
         </ul>
 
-        <div class="fragment large-margin-top">
-            <h2>Let's have a look at some code</h2>
-
-            <p class="default-margin-top">
-                The theme has around 40 views and 30 classes. <br/> And there's still a lot of work to do.
-            </p>
-        </div>
+        <h3 class="fragment large-margin-top">Load balanced WordPress infrastructure.</h3>
 
     </section>
 
