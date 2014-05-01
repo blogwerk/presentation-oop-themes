@@ -396,8 +396,8 @@
 
         <h3>as a templating system</h3>
 
-        <img src="images/base-view-twig.png" width="530" style="float: left;"/>
-        <img src="images/main-view-twig.png" width="390" style="float: left; margin-left: 20px; "/>
+        <img src="images/base-view-twig.png" width="510" style="float: left;"/>
+        <img src="images/main-view-twig.png" width="410" style="float: left; margin-left: 20px; "/>
 
         <aside class="notes">
             Twig is a full-fledged templating system that allows <br/>
@@ -414,18 +414,29 @@
     <section>
         <h2>Component-based theme extensions</h2>
 
+        <p>Extend a theme, where no suitable / satisfying plugins exist</p>
         <ol>
-            <li>Hello1</li>
-            <li class="fragment">Hello2</li>
-            <li class="fragment">Hello3</li>
+            <li class="fragment default-margin-top">Each additional functionality can be organized in components</li>
+            <li class="fragment default-margin-top">register custom post types and taxonomies</li>
+            <li class="fragment default-margin-top">register their specific views</li>
+            <li class="fragment default-margin-top">provide backend customizations</li>
         </ol>
 
         <aside class="notes">
-            How to extend the theme with custom functionalities
-            (where no suitable/satisfying plugins exist)
-            discuss the component based approach, explain the advanteges of namespacing,
-            OOP encapsulation, write clean code (small classes, that do one thing, but one thing well)
-            use namespaces as a form of documentation (with use) and autocompletion
+            Say, a website also wants to present their references through WordPress ▼ <br/>
+            - we need to register the custom post type "project" (tell wordpress about it for the backend) ▼ <br/>
+            - we can gather all "project"-related code in a component (tell wordpress how to render it) <br/>
+            - without that component, the theme would function, just without the "project"'s ▼<br/>
+            - provide backend (wp-admin) customisations for that post type (tell wordpress how to create and edit the
+            "project" <br/>
+
+            Basic premise: small classes, that each do one thing, but one thing well, write clean code <br/>
+
+            @TODO use namespaces as a form of documentation (with use) and autocompletion <br/>
+
+            Besides having the advantages of a clean structure and a separation of concerns,
+            if we have for example another website with similar requirements:
+            we could reuse small bits (or components) to inherit and extend from.
         </aside>
     </section>
 
@@ -498,7 +509,7 @@
         <h3 class="default-margin-top">Individual Software on top of WordPress</h3>
 
         <aside class="notes">
-            ENSI (with screenshots?): Technical Forum, Topics, Documents, Menus, Page Templates, ...
+            ENSI: Technical Forum, Topics, Documents, Menus, Page Templates, ...
             ENSI-Rat: child theme
             StepChallenge: Application build on top of WordPress with all relevant application code in theme
         </aside>
@@ -506,14 +517,59 @@
 
     <section>
         <h2>A complex website: ensi.ch relaunch</h2>
+        <img src="images/ensi.png" />
+        <aside class="notes">
+            unfortunately we couldn't show the relaunched theme...<br />
+            what's important is not how it looks, but what's inside... :) <br />
+        </aside>
+    </section>
+    <section>
+        <h2>Content organisation</h2>
+        <img src="images/ensi-content-structure-2.png" class="no-border no-background fragment replacement"
+             data-fragment-index="1"/>
+        <img src="images/ensi-content-structure-1.png" class="no-border no-background fragment first"
+             data-fragment-index="0"/>
+        <aside class="notes">
+          the website has several thousands of posts and pages <br />
+          we kept the posts and pages but provided additional post types: <br />
+            - topic dossier <br />
+            - documents <br />
+            - questions / answers <br />
+          and all the taxonomies to link them together: topic, document-category, asked-by, answered-by, ...
+        </aside>
+    </section>
 
+    <section>
+        <h2>Theme structure</h2>
+        <img src="images/ensi-theme.png" />
+    </section>
+    <section>
+        <h2>Menu component</h2>
 
+        <img src="images/menu-component.png" />
+        <aside class="notes">
+            the website has also some really big and deep menu structures <br />
+            several hundreds of milliseconds just to render the menu (only wordpress) <br />
+            we wrote a MenuComponent that caches each menu individually, with proper cache invalidations <br />
+            for logged-in users caching is usually somewhat limited: provide a fast frontend experience for them as well <br />
+            this component was pretty useful, and we reused it as-is in other projects
+        </aside>
     </section>
 
     <section>
         <h2>What about child themes?</h2>
 
-
+        <h3 class="fragment">they work too</h3>
+        <h4 class="fragment">but</h4>
+        <ul class="default-margin-top fragment">
+            <li class="default-margin-top">Real inheritance of theme class (or component classes)</li>
+            <li class="default-margin-top">Resource and view files overridable in any location</li>
+        </ul>
+        <aside class="notes">
+            at least a theme object has to be there (but it can override anything already configured by parent class directly) <br />
+            we can replace specific views, <br />
+            not load, or inherit and extend from components
+        </aside>
     </section>
 
     <section>
@@ -556,8 +612,13 @@
 
 <section>
     <section>
-        <h2>Outlook: Tests, dependencies</h2>
+        <h2>Outlook</h2>
+        <h1 class="fragment default-margin-top">Theme Tests</h1>
+        <h3 class="fragment">PHPUnit, Behat, mink, selenium </h3>
 
+        <h1 class="fragment default-margin-top">Dependency Management</h1>
+
+        <h1 class="fragment default-margin-top">MVC</h1>
         <aside class="notes">
             Now that we have small, well-structured units of code: we can test them... ->behat, phpunit, selenium, ....
             WordPress Core dependencies should be wrapped, plugin/library dependencies should be available from a
